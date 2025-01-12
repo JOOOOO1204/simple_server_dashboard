@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apps Links</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .app {
+            background-color: #222;
+            border: 2px solid #444;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px auto;
+            font-size: 20px;
+            width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease;
+            text-decoration: none; /* Remove underline */
+            color: white; /* Keep text color white */
+        }
+
+        .app:hover {
+            transform: scale(1.05);
+            border-color: #666;
+        }
+
+        .icon-box {
+            background-color: #333;
+            border: 1px solid #555;
+            border-radius: 5px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .status {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .online {
+            background-color: green;
+        }
+
+        .offline {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Apps Links</h1>
+    <a href="http://192.168.0.10:8096/" target="_blank" class="app">
+        <div class="icon-box">
+            <img class="icon" src="icon/jellyfin.svg" alt="Jellyfin Icon">
+        </div>
+        <span class="status offline"></span>
+        Jellyfin
+    </a>
+    <a href="http://192.168.0.10:8080/" target="_blank" class="app">
+        <div class="icon-box">
+            <img class="icon" src="icon/qbittorrent.svg" alt="Qbittorrent Icon">
+        </div>
+        <span class="status offline"></span>
+        Qbittorrent
+    </a>
+    <a href="http://192.168.0.10:8989/" target="_blank" class="app">
+        <div class="icon-box">
+            <img class="icon" src="icon/sonarr.svg" alt="Sonarr Icon">
+        </div>
+        <span class="status offline"></span>
+        Sonarr
+    </a>
+    <a href="http://192.168.0.10:9696/" target="_blank" class="app">
+        <div class="icon-box">
+            <img class="icon" src="icon/prowlarr.svg" alt="Prowlarr Icon">
+        </div>
+        <span class="status offline"></span>
+        Prowlarr
+    </a>
+    <a href="http://192.168.0.10:7878/" target="_blank" class="app">
+        <div class="icon-box">
+            <img class="icon" src="icon/radarr.svg" alt="Radarr Icon">
+        </div>
+        <span class="status offline"></span>
+        Radarr
+    </a>
+    <a href="http://192.168.0.10:25600/" target="_blank" class="app">
+        <div class="icon-box">
+            <img class="icon" src="icon/komaga.svg" alt="Komga Icon">
+        </div>
+        <span class="status offline"></span>
+        Komga
+    </a>
+    <a href="http://192.168.0.10:9117/" target="_blank" class="app">
+        <div class="icon-box">
+            <img class="icon" src="icon/jackett.png" alt="Jackett Icon">
+        </div>
+        <span class="status offline"></span>
+        Jackett
+    </a>
+
+    <script>
+        // Check the status of each app
+        const apps = document.querySelectorAll('.app');
+
+        apps.forEach(app => {
+            const link = app.href;
+            const statusDot = app.querySelector('.status');
+
+            // Use a fetch request with a short timeout to check online status
+            fetch(link, { method: 'HEAD', mode: 'no-cors' })
+                .then(() => {
+                    statusDot.classList.remove('offline');
+                    statusDot.classList.add('online');
+                })
+                .catch(() => {
+                    statusDot.classList.remove('online');
+                    statusDot.classList.add('offline');
+                });
+        });
+    </script>
+</body>
+</html>
